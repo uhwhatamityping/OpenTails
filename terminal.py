@@ -1,4 +1,4 @@
-import platform, subprocess, psutil, time, sys, threading
+import platform, subprocess, psutil, time, sys, threading, os
 
 host = platform.system()
 host_ver = platform.release()
@@ -102,12 +102,46 @@ print(f"""
 
 """)
 
+
+
 while True:
     command = input("OpenTails> ")
 
-    if command == "exit":
-        print("fjfbhd")
+    if command  == "exit":
+        print("BYE!")
         break
+
+    elif command == "sysinfo":
+        print(f"""cpu": "{cpu_name}", "ram": "{gb}", "resolution": "{resolution}", "os": "{host} {host_ver}", "kernel": "opentails-0.1-september-3-26", "shell": "{shell}"}}""")
+
+    elif command == "clear":
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    elif command == "echo":
+        print("Echoing...")
+        args = input()
+        print(args)
+
+    elif command == "about":
+        print(f"OpenTails Shell Version: {shell}")
+
+    elif command == "cpu":
+        print(cpu_name)
+
+    elif command == "ram":
+        print(gb)
+
+    elif command == "resolution":
+        print(resolution)
+
+    elif command == "os":
+        print(f"{host} {host_ver}")
+
+    elif command == "resolution":
+        print(resolution)
+
+    elif command == "help":
+        print("Available commands: sysinfo, clear, echo, about, cpu, ram, resolution, os, help, exit")
 
     else:
         print("Command Not Found.")
