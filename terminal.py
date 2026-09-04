@@ -6,6 +6,11 @@ host_ver = platform.release()
 shell ="opentails-shell-r-0.1-september-5-26"
 
 def fetch_cpu_name():
+    # Fetch CPU name based on operating system
+
+
+
+     # windows
     if sys.platform == "win32":
         cmd = "wmic cpu get name"
         output = subprocess.check_output(cmd, shell=True).decode()
@@ -13,10 +18,12 @@ def fetch_cpu_name():
         # lines[0] is the header "Name", lines[1] is the actual CPU name string
         return lines[1] if len(lines) > 1 else "Unknown CPU"
 
+    # macos
     elif sys.platform == "darwin":
         cmd = ["sysctl", "-n", "machdep.cpu.brand_string"]
         return subprocess.check_output(cmd).decode().strip()
 
+    # linux
     elif sys.platform.startswith("linux"):
         try:
             with open("/proc/cpuinfo", "r") as f:
@@ -30,8 +37,10 @@ def fetch_cpu_name():
     return "Unknown CPU"
 
 
-# The CPU name is now cleanly saved as a string variable
+# The CPU name is now in a variable!!
 cpu_name = fetch_cpu_name()
+
+# fetch RAM amount and speed
 
 os_t = platform.system().lower(); gb = f"{round(psutil.virtual_memory().total / 1024**3, 2)} GB"
 try:
@@ -41,14 +50,20 @@ try:
     speed = f"{', '.join(sp)} MHz" if sp else "Unknown"
 except Exception: speed = "Unknown"
 
+# get resolution
+
 def get_resolution():
     system = platform.system()
 
+
+     # Windows
     if system == "Windows":
         import ctypes
         user32 = ctypes.windll.user32
         return f"{user32.GetSystemMetrics(0)}x{user32.GetSystemMetrics(1)}"
 
+
+    # Linux
     elif system == "Linux":
         try:
             output = subprocess.check_output(
@@ -60,6 +75,7 @@ def get_resolution():
         except (FileNotFoundError, subprocess.CalledProcessError):
             pass
 
+    # macOS
     elif system == "Darwin":
         try:
             output = subprocess.check_output(
@@ -72,6 +88,9 @@ def get_resolution():
             pass
 
     return "Unknown"
+
+
+#resolution is now in a variable!!
 
 resolution = get_resolution()
 
