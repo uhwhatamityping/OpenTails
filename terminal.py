@@ -3,7 +3,7 @@ import platform, subprocess, psutil, time, sys, threading, os
 host = platform.system()
 host_ver = platform.release()
 
-shell ="opentails-shell-r-0.1-september-3-26"
+shell ="opentails-shell-r-0.1-september-5-26"
 
 def update_screen():
     global uptime
@@ -94,7 +94,7 @@ print(f"""
 .....................   ..........
  :7J??7777777777777777??YPY?#BB#######J    OS: OpenTails 0.1 x86_64
 75~.                     :?G?P~~@@7:^^:    Host: {host} {host_ver}
-!G                          !P7P:&@^       Kernel: opentails-0.1-september-3-26
+!G                          !P7P:&@^       Kernel: opentails-0.1-september-5-26
 5?                           B^B~&@^       Shell: {shell}
 !G                          ~P7P:&@^       Resolution: {resolution}
 75~.                     :?G55.:@@^        CPU: {cpu_name}
