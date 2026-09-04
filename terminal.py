@@ -5,12 +5,6 @@ host_ver = platform.release()
 
 shell ="opentails-shell-r-0.1-september-5-26"
 
-def update_screen():
-    global uptime
-    while True:
-        uptime = time.time() - boot_time
-        time.sleep(1)
-
 def fetch_cpu_name():
     if sys.platform == "win32":
         cmd = "wmic cpu get name"
@@ -39,11 +33,6 @@ def fetch_cpu_name():
 # The CPU name is now cleanly saved as a string variable
 cpu_name = fetch_cpu_name()
 
-
-boot_time = time.time()
-
-uptime = time.time() - boot_time
-
 os_t = platform.system().lower(); gb = f"{round(psutil.virtual_memory().total / 1024**3, 2)} GB"
 try:
     cmd = "wmic memorychip get speed" if "windows" in os_t else "sudo dmidecode --type 17 | grep 'Speed:'" if "linux" in os_t else "system_profiler SPMemoryDataType | grep 'Speed:'"
@@ -51,10 +40,6 @@ try:
     sp = [s.strip() if "windows" in os_t else s.split(":").strip() for s in out.split('\n') if (s.strip().isdigit() if "windows" in os_t else ":" in s and "Unknown" not in s)]
     speed = f"{', '.join(sp)} MHz" if sp else "Unknown"
 except Exception: speed = "Unknown"
-
-import platform
-import subprocess
-import re
 
 def get_resolution():
     system = platform.system()
@@ -91,14 +76,14 @@ def get_resolution():
 resolution = get_resolution()
 
 print(f"""
-.....................   ..........
- :7J??7777777777777777??YPY?#BB#######J    OS: OpenTails 0.1 x86_64
-75~.                     :?G?P~~@@7:^^:    Host: {host} {host_ver}
-!G                          !P7P:&@^       Kernel: opentails-0.1-september-5-26
-5?                           B^B~&@^       Shell: {shell}
-!G                          ~P7P:&@^       Resolution: {resolution}
-75~.                     :?G55.:@@^        CPU: {cpu_name}
-75~.......................:?G?P:@@^        RAM: {gb} | Speed: {speed}
+    .....................   ..........
+     :7J??7777777777777777??YPY?#BB#######J    OS: OpenTails 0.1 x86_64
+    75~.                     :?G?P~~@@7:^^:    Host: {host} {host_ver}
+    !G                          !P7P:&@^       Kernel: opentails-0.1-september-5-26
+    5?                           B^B~&@^       Shell: {shell}
+    !G                          ~P7P:&@^       Resolution: {resolution}
+    75~.                     :?G55.:@@^        CPU: {cpu_name}
+    75~.......................:?G?P:@@^        RAM: {gb} | Speed: {speed}
 
 """)
 
